@@ -1,0 +1,31 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+int Shuixianhua()
+{
+	int?num = 0;
+	int?hundred = 0;
+	int?ten = 0;
+	int?unit = 0;
+
+	for(;?num? < 1000;?num++)
+	{
+		hundred = num? / 100;
+		ten = (num? - hundred * 100) / 10;
+		unit = (num? - hundred * 100 - ten? * 10) / 1;
+		if?(num? == hundred?*?hundred?*?hundred
+			+ ten?*?ten?*?ten
+			+ unit?*unit?*unit)
+		{
+			printf("%d????", num);
+		}
+	}
+	printf("\n");
+}
+
+int?main()
+{
+	Shuixianhua();
+	system("pause");
+	return?0;
+}
