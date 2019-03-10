@@ -1,0 +1,28 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+int main()
+{
+	int max, mid,min;
+	scanf("%d%d%d", &max,&mid,&min);
+	if (max<mid)
+	{
+		max = max + mid;
+		mid = max - mid;
+		max = max - mid;
+	}
+	if (max < min)
+	{
+		max = max + min;
+		min = max - min;
+		max = max - min;
+	}
+	if (mid < min)
+	{
+		mid = mid + min;
+		min = max - min;
+		mid = max - min;
+	}
+	printf("%d %d %d", max, mid, min);
+	system("pause");
+	return 0;
+}
