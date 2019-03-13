@@ -1,0 +1,339 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Windows.Forms;
+
+namespace _24Client
+{
+    public partial class Form1 : Form
+    {
+        int count = 31;
+        private System.DateTime StartTime; private TcpClient client;
+        public Form1()
+        {
+            InitializeComponent();
+
+        }
+        TcpClient tcpClient;
+
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            tcpClient = new TcpClient();
+            try
+            {
+                tcpClient.Connect(this.textBoxIP.Text, Convert.ToInt32(this.textBoxPort.Text));
+                this.textBoxInfo.Text = "连接成功-" + DateTime.Now.ToShortDateString() + "\r\n" + this.textBoxInfo.Text;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("连接失败-" + ex.Message);
+            }
+        }
+        private void buttonLogin_Click(object sender, EventArgs e)
+        {
+            this.textBoxInfo.Text = "登录成功-" + DateTime.Now.ToShortDateString() + "\r\n" + this.textBoxInfo.Text;
+        }
+     /* private void buttonSum_Click(object sender, EventArgs e)
+        {
+
+            Random random = new Random(DateTime.Now.Millisecond);
+            int numb1 = random.Next(1, 9);
+            int numb2 = random.Next(1, 9);
+            int numb3 = random.Next(1, 9);
+            int numb4 = random.Next(1, 9);
+            label1.Text = numb1.ToString();
+            label2.Text = numb2.ToString();
+            label3.Text = numb3.ToString();
+            label4.Text = numb4.ToString();
+            StartTime = DateTime.Now;
+            listBoxInfo.Items.Clear();
+            count = 30;
+            labeltime.Text = count.ToString();
+            timer1.Start();
+        }*/
+
+        private void textBoxanswer_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonTake_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            runter();
+            //string str = textBoxanswer.Text;
+            string[] str = new string[listBoxInfo.Items.Count];
+            //int aaaaa = listBoxInfo.Items.Count;
+            //MessageBox.Show(aaaaa);
+            Boolean flag = false;
+            for(int i = 0;i < listBoxInfo .Items .Count ;i++)
+            {
+                str[i] = listBoxInfo.Items[i].ToString();
+                if (textBoxanswer .Text == str [i])
+                {
+                    MessageBox.Show("恭喜你答对了，积分+1");
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) MessageBox.Show("抱歉回答错误，积分-1");
+            
+        }
+  /*     private void DictonarySort(Dictionary<string, int> dic)
+　　{
+　　　　var dicSort = from objDic in dic orderby objDic.Value descending select objDic;
+　　　　foreach(KeyValuePair<string, int> kvp in dicSort)
+　　　　　　Response.Write(kvp.Key + "：" + kvp.Value + "<br />");
+    foreach (var item in DictonarySort)
+    {
+        Console.WriteLine(item.Key + " , " + item.Value);
+    }
+    try
+    {
+        // 创建一个 StreamReader 的实例来读取文件 
+        // using 语句也能关闭 StreamReader
+        using (StreamReader sr = new StreamReader("c:/jamaica.txt"))
+        {
+            string line;
+
+            // 从文件读取并显示行，直到文件的末尾 
+            while ((line = sr.ReadLine()) != null)
+            {
+                Console.WriteLine(line);
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        // 向用户显示出错消息
+        Console.WriteLine("The file could not be read:");
+        Console.WriteLine(e.Message);
+    }
+    string[] names = new string[] { "Zara Ali", "Nuha Ali" };
+    using (StreamWriter sw = new StreamWriter("names.txt"))
+    {
+        foreach (string s in names)
+        {
+            sw.WriteLine(s);
+
+        }
+    }
+　　}*/
+        //查看积分
+        private bool isSame(int a, int b, int c, int d)
+        {
+            if (a == b || a == c || a == d || b == c || b == d || c == d)
+            {
+                return false;
+            }
+            {
+                return true;
+            }
+        }
+        public int counter(int i, int sum, int num)
+        {
+            if (i == 0)
+            {
+                return sum + num;
+            }
+            else if(i == 1)
+            {
+                return sum - num;
+            }
+            else if (i == 2)
+            {
+                return sum * num;
+            }
+            else
+            {
+                float temp = (float)sum / num;
+                if (num != 0)
+                {
+                    if (temp > (sum / num))
+                    {
+                        return-1000;
+                    }
+                    else
+                    {
+                        return sum / num;
+                    }
+                }
+                else
+                {
+                    return -1000;
+                }
+            }
+         
+        }
+        private string opertors(int i)
+        {
+            if (i == 0)
+            {
+                return "+";
+            }
+            else if (i == 1)
+            {
+                return "-";
+            }
+            else if (i == 2)
+            {
+                return "*";
+            }
+            else
+            {
+                return "÷";
+            }
+        }
+        private void runter()
+        {
+            bool isResult = false;
+            int[] numb = { 0, 0, 0, 0 };
+            numb[0] = Int16.Parse(label1.Text);
+            numb[1] = Int16.Parse(label2.Text);
+            numb[2] = Int16.Parse(label3.Text);
+            numb[3] = Int16.Parse(label4.Text);
+            int count = 0;
+            for (int a = 0; a < 4; a++)
+            {
+                for (int b = 0; b < 4; b++)
+                {
+                    for (int c = 0; c < 4; c++)
+                    {
+                        for (int d = 0; d < 4; d++)
+                        {
+                            if (this.isSame(a, b, c, d))
+                            {
+                                for (int a1 = 0; a1 < 4; a1++)
+                                {
+                                    for (int b1 = 0; b1 < 4; b1++)
+                                    {
+                                        for (int c1 = 0; c1 < 4; c1++)
+                                        {
+                                            count = this.counter(c1, this.counter(b1, this.counter(a1, numb[a], numb[b]), numb[c]), numb[d]);
+                                            if (count == 24)
+                                            {
+                                                listBoxInfo.Items.Add("((" + numb[a] + opertors(a1) + numb[b] + ")" + opertors(b1) + numb[c] + ")" + opertors(c1) + numb[d] + "=" + count);
+                                                isResult = true;
+                                            }
+                                           // count = this.counter(a1, numb[a], this.counter(c1, this.counter(b1, numb[b], numb[c], numb[d])));
+                                            count = this.counter(c1, this.counter(a1, numb[a], this.counter(b1, numb[b], numb[c])), numb[d]);
+                                            if (count == 24)
+                                            {
+                                                listBoxInfo.Items.Add("(" + numb[a] + opertors(a1) + "(" + numb[b] + opertors(b1) + numb[c] + "))" + opertors(c1) + numb[d] + "=" + count);
+                                                isResult = true;
+                                            }
+                                            count = this.counter(b1, this.counter(a1, numb[a], numb[b]), this.counter(c1, numb[c], numb[d]));
+                                            if (count == 24)
+                                            {
+                                                listBoxInfo.Items.Add("(" + numb[a] + opertors(a1) + numb[b] + ")" + opertors(b1) + "(" + numb[c] + opertors(c1) + numb[d] + ")" + "=" + count);
+                                                isResult = true;
+                                            }
+                                            count = this.counter(a1, numb[a], this.counter(b1, numb[b], this.counter(c1, numb[c], numb[d])));
+                                            if (count == 24)
+                                            {
+                                                listBoxInfo.Items.Add("" + numb[a] + opertors(a1) + "(" + numb[b] + opertors(b1) + "(" + numb[c] + opertors(c1) + numb[d] + "))" + "=" + count);
+                                                isResult = true;
+                                            }
+                                            count = this.counter(a1, numb[a], this.counter(c1, numb[b], this.counter(b1, numb[c], numb[d])));
+                                            if(count == 24)
+                                            {
+                                                listBoxInfo.Items.Add("" + numb[a] + opertors(a1) + "((" + numb[b] + opertors(b1) + numb[c] + ")" + opertors(c1) + numb[d] + ")" + "=" + count);
+                                                isResult = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (!isResult)
+            {
+                MessageBox.Show("此副牌无解");
+            }
+        }
+
+      /*  private void timer(object sender, EventArgs e)
+        {
+            if (count != 0)
+            {
+                count = count - 1;
+                label5.Text = count.ToString();
+            }
+            else
+            {
+                MessageBox.Show("已经超过30秒了，游戏结束。");
+
+            }
+        }*/
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            {
+                if (count != 0)
+                {
+                    count = count - 1;
+                    label5.Text = count.ToString();
+                }
+                else
+                {
+                    timer1.Stop();
+                    MessageBox.Show("已经超过100秒了，游戏结束。");
+
+                }
+            }
+        }
+
+       
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Random random = new Random(DateTime.Now.Millisecond);
+            int numb1 = random.Next(1, 9);
+            int numb2 = random.Next(1, 9);
+            int numb3 = random.Next(1, 9);
+            int numb4 = random.Next(1, 9);
+            label1.Text = numb1.ToString();
+            label2.Text = numb2.ToString();
+            label3.Text = numb3.ToString();
+            label4.Text = numb4.ToString();
+            StartTime = DateTime.Now;
+            listBoxInfo.Items.Clear();
+            count = 1000;
+            labeltime.Text = count.ToString();
+            timer1.Start();
+        }
+
+        private void buttonSee_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            this.listBoxInfo.Items.Clear();
+            runter();
+        }
+ 
+       
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            dic.Add("XXH", 5);
+           
+            MessageBox.Show("用户名：XXH     积分:2  ");
+        }
+
+        private void listBoxInfo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+       
+    }
+
+        
+}
