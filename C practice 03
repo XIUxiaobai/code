@@ -1,0 +1,47 @@
+//输入三个整数求最大的一个数
+#include <stdio.h>
+main()
+{
+	int a,b,c,max;
+	int findmax(int x,int y,int z);
+	printf("请输入三个整型数：\n");
+	scanf("%d %d %d",&a,&b,&c);
+	max = findmax(a,b,c);
+ 
+	printf("max= %d\n",max);
+	return 0;
+}
+int findmax(int x,int y,int z)
+{
+	int max;		//不同的函数中可以使用同名（局部）变量
+	if(x>y){
+		max = x;
+	}else
+	{
+		max = y;
+	}
+	if(z>max)
+	{
+		max = z;
+	}
+	return max;
+}
+
+//使用函数+三目运算符
+#include <stdio.h>
+int main()
+{
+	int a,b,c;
+	int findmax(int x,int y);
+ 
+	printf("请输入三个整型数：\n");
+	scanf("%d %d %d",&a,&b,&c);
+	printf("max = %d\n",findmax((a,b),c));
+ 
+	//return 0;
+}
+ 
+int findmax(int x,int y)
+{
+	return x>y?x:y;
+}
