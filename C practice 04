@@ -1,0 +1,86 @@
+/*
+求1+2!+3!+...+20!的和。
+*/
+#include <stdio.h>
+main()
+{
+	long sum = 0;  //阶乘的和，因为数太大要定义成long类型
+	long n=1;
+	int i;
+	for(i=1;i<=20;i++)
+	{
+		n*=i;			//计算每个项的阶乘
+		sum+=n;			//每个项的阶乘数依次相加
+	}
+	printf("所有阶乘数的和为：%ld\n",sum);
+	return 0;
+}
+
+--------------------- 
+
+
+/*
+编程完成数据加密。数据是五位的整数，加密规则为：
+   每位数字都加上6，然后用和除以8的余数代替该数字，
+   再将第一位和第五位交换，第二位和第四位
+*/
+#include <stdio.h>
+void main()
+{
+	int i,t,a[5];
+	int num;
+	int k = 10000;
+	printf("请输入一个五位数： ");
+	
+	scanf("%ld",&num);
+ 
+	if((9999<num)&&(100000>num))
+	{
+		//printf("加密后的值是：\n");
+ 
+		for(i=0;i<5;i++)
+		{
+			a[i] = num/k;
+			num = num-a[i]*k;
+			if(num>10)
+			{
+				k = k/10;
+			}
+			else
+			{
+				a[++i] = num%10;   //取出个位数
+			}
+		}
+ 
+		for(i=0;i<5;i++)
+		{
+			printf("%d",a[i]);
+			//printf("\n");
+		}
+ 
+		for(i=0;i<5;i++)
+		{
+			a[i] = (a[i]+6)%8;
+		}
+ 
+		t = a[0];
+		a[0] = a[4];
+		a[4] = t;
+		
+		t = a[1];
+		a[1] = a[3];
+		a[3] = t;
+ 
+		printf("加密后的值是：\n");
+		for(i=0;i<5;i++)
+		{
+			printf("%d",a[i]);
+		}
+			printf("\n");
+		getch();
+ 
+	}
+	else
+	{
+		printf("输入的不是五位整数!");
+	}
