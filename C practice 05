@@ -1,0 +1,41 @@
+/*  File name:ApproximatelyEqual  
+    Function: ensure the accurcy of two numbers.|x-y|/min(|x|,|y|)<e   
+    Time: 2018.04.07  
+    edited by QJX     
+*/ 
+   
+#include <stdio.h>  
+#include <math.h>  
+double Minfabsnum(double x,double y);   //Calculate the min of fabs(x),fabs(y)  
+void GiveInstruction(void); //Give instruction and reference to users  
+#define e 0.0001    //The accurcy   
+   
+double main()  
+{  
+     double x,y,c;  
+     GiveInstruction();  
+     printf("Please input 2 numers:");  
+     scanf("%lf,%lf",&x,&y);  
+     c=Minfabsnum(x,y);  
+     if(fabs(x-y)/c<e)  
+        printf("Two numers satisfy the accurcy!");  
+    else  
+        printf("Two numers not satisfy the accurcy!");  
+}   
+   
+double Minfabsnum(double x,double y)    //Calculate the min of fabs(x),fabs(y)  
+{  
+    double a,b;  
+    a=fabs(x);  
+    b=fabs(y);  
+    if(a<=b)  
+    return a;  
+    else 
+    return b;  
+}  
+   
+void GiveInstruction(void)  //Give instruction and reference to users  
+{  
+    printf("This program can ensure the accurcy of two double numbers!\n");  
+    printf("And the accurcy is 0.0001\n\n");  
+}
