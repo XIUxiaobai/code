@@ -1,0 +1,142 @@
+//堆排序:树形选择排序，将带排序记录看成完整的二叉树，第一步：建立初堆，第二步：调整堆
+//第二步：调整堆
+void HeapAdjust(int a[],int s,int n)
+{
+	//调整为小根堆，从小到大
+	int rc=a[s];
+	for(int j=2*s;j<=n;j*=2)
+	{
+		if(j<n && a[j]>a[j+1])//判断左右子数大小
+			j++;
+		if(rc<=a[j])
+			break;
+		a[s]=a[j];
+		s=j;
+	}
+	a[s]=rc;
+}
+//第一步：建初堆
+void CreatHeap(int a[],int n)
+{
+	//小根堆
+	for(int i=n/2;i>0;i--)
+		HeapAdjust(a,i,n);
+}
+//整合
+void HeapSort(int a[],int n)
+{
+	CreatHeap(a,n);//第一步，建立初堆
+	for(int i=n;i>1;i--)
+	{
+		int x=a[1];//堆顶与最后一个元素互换
+		a[1]=a[i];
+		a[i]=x;
+		HeapAdjust(a,1,i-1);
+	}
+ 
+}
+int main()
+{
+	int n;
+	cin>>n;
+	int *a=new int[n+1];
+	for(int j=1;j<n;j++)//注意：这里是从1开始的
+		cin>>a[j];
+	HeapSort(a,n);
+	for(int i=1;i<n;i++)
+		cout<<a[i];
+	delete []a;
+}
+
+//算法关键：将头节点后的节点移到头结点之前，并使最前面的节点为头结点
+
+#include<stdio.h>
+#include<malloc.h>
+#define LEN sizeof(struct LNode)
+
+struct LNode
+{
+    int data;
+    struct LNode *next;
+};
+
+struct LNode *creat()
+{struct LNode *head,*p1,*p2;
+p1=p2=(struct LNode * )malloc(LEN);
+    int n=0;
+    printf("请依次输入链表1的数据,输入0时结束：\n");
+    scanf("%d",&p1->data);
+    head=NULL;
+    while(p1->data!=0) 
+    {n++;
+    if(n==1)head=p1;
+    else p2->next=p1;
+    p2=p1;
+    p1=(struct LNode *)malloc(LEN);
+    scanf("%d",&p1->data);
+    }
+    p2->next=NULL;
+    return(head); 
+}
+
+void print(struct LNode *head)
+{
+    struct LNode *p;
+    printf("逆置后的链表为：\n");
+    p=head;
+    if(head!=NULL)
+    {
+        while(p!=NULL)
+        {printf("%d\n",p->data);
+        p=p->next;
+        }
+    }
+}
+
+int main()
+{struct LNode *head,*p1,*p2;
+    p1=p2=head=creat();
+     while((p2->next)!=NULL) {
+         p2=p2->next;
+         p1->next=p2->next;
+         p2->next=head;
+        head=p2;
+        p2=p1;
+     }
+     print(head); 
+     return 0;
+} 
+
+#include <stdio.h>//头文件
+#include <stdlib.h>
+typedef struct BiTNode
+{
+char data;
+struct BiTNode *lchild,*rchild;
+} 
+BiTNode,*BiTree;//定义结点类型
+BiTree CreateBiTree()//创建树
+{
+char p;BiTree T;
+scanf("%c",&p);
+if(p==' ')
+T=NULL;
+else
+{
+T=(BiTNode *)malloc(sizeof(BiTNode));//为结点开辟空间
+T->data=p;
+T->lchild=CreateBiTree();
+T->rchild=CreateBiTree();
+}
+return (T);
+}
+void PreOrder(BiTree T)//先序
+{
+if(T!=NULL)
+{
+printf("%c",T->data);
+PreOrder(T->lchild);
+PreOrder(T->rchild);
+
+}
+}
