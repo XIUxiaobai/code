@@ -1,0 +1,45 @@
+void PreOrder(BiTree T)//先序
+{
+if(T!=NULL)
+{
+printf("%c",T->data);
+PreOrder(T->lchild);
+PreOrder(T->rchild);
+
+}
+}
+void InOrder(BiTree T)//中序
+{
+if(T!=NULL)
+{
+InOrder(T->lchild);
+printf("%c",T->data);
+InOrder(T->rchild);
+
+}
+}
+void PostOrder(BiTree T)//后序
+{
+if(T!=NULL)
+{
+PostOrder(T->lchild);
+PostOrder(T->rchild);
+printf("%c",T->data);
+}
+}
+void main()//主函数
+{
+BiTree Ta;
+Ta=CreateBiTree();
+printf("先序遍历:");
+printf("\n");
+PreOrder(Ta);
+printf("\n");
+printf("中序遍历:");
+printf("\n");
+InOrder(Ta);
+printf("\n");
+printf("后序遍历:");
+printf("\n");
+PostOrder(Ta);
+}
