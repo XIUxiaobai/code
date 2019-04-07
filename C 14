@@ -1,0 +1,50 @@
+struct ListNode
+{
+    int         m_nKey;
+    ListNode   *m_pNext;
+};
+
+unsigned int GetListLength(ListNode *pHead)
+{
+    unsigned int len = 0;
+    ListNode *cur = pHead;
+    while(cur != NULL)
+    {
+        cur = cur->m_pNext;
+        len++;
+    }
+    return len;
+}
+
+ListNode *FindCommonNode(ListNode *pHead1, ListNode *pHead2)
+{
+    if (NULL == pHead1 || NULL == pHead2)
+        return NULL;
+    unsigned int length1 = GetListLength(pHead1);
+    unsigned int length2 = GetListLength(pHead2);
+    ListNode *pHeadLong = pHead1;
+    ListNode *pHeadShort = pHead2;
+    int k = length1 - length2;
+    if (k < 0)
+    {
+        pHeadLong = pHead2;
+        pHeadShort = pHead1;
+        k = -k;
+    }
+
+    // move pHeadLong k steps first
+    for (int i = 0; i < k; ++i)
+    {
+        pHeadLong = pHeadLong->m_pNext;
+    }
+
+    // move pHeadLong and pHeadShort at same time until meet
+    while(pHeadLong != pHeadShort)
+    {
+        pHeadLong = pHeadLong->m_pNext;
+        pHeadShort = pHeadShort->m_pNext;
+    }
+
+    // after while loop, pHeadLong==pHeadShort  ==?null
+    return pHeadLong;
+}
