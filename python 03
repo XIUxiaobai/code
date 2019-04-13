@@ -1,0 +1,15 @@
+price = float(input("请输入价格："))
+weight = float(input("请输入重量："))
+money = price * weight
+print("总价为：",money)
+
+# print("""
+# 今天是个开心的日子，
+# 为什么呢
+# 因为我在学习
+# 奈斯
+# """)
+
+# a = '50'
+# b = int(a)
+# print(type(a),type(b))
