@@ -1,0 +1,28 @@
+# #计算0到100所有数字的累加和
+# i = 0
+# a = 0
+# #使用while进行循环
+# while i <100:
+#     a += i
+#     print(a)
+#     i += 1
+
+
+#计算0到100之间奇数求和
+i = 0
+result = 0
+while i < 100 :
+    if i % 2 != 0:
+        result += i
+        print(result)
+    i += 1
+    
+    #计算0到100之间偶数求和
+    
+i = 0
+result = 0
+while i < 100 :
+    if i % 2 == 0:
+        result += i
+        print(result)
+    i += 1
