@@ -1,0 +1,31 @@
+#打印小明的信息
+
+info_tuple =("小明",180,17,65)
+print("%s的身高是%dcm 年龄是%d岁 体重是%.2f公斤"%info_tuple)
+
+info_str = ("%s的身高是%dcm 年龄是%d岁 体重是%.2f公斤"%info_tuple)
+print(info_str)
+
+
+# #打印数行小星星，每行依次递增
+# i = 0
+# while i <= 5:
+#     print("*"*i)
+#     i += 1
+
+row = 1
+
+while row <= 5:
+    col = 1
+    while col < row :
+        print("*",end = "")
+        col += 1
+    print("*")
+    row += 1
+
+
+
+
+
+
+
