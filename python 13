@@ -1,0 +1,25 @@
+students = [
+    {"name":"小紫",
+     "IDcord":412356,
+     "weight":49},
+    {"name":"小绿",
+     "IDcord":41235,
+     "weight":57.5},
+{"name":"小红",
+     "IDcord":41234,
+     "weight":47.5},
+]
+
+#在students中进行遍历
+find_name = input("请输入你要找的人的姓名：")
+for std_table in students:
+
+
+    if std_table["name"] == find_name:
+        print("找到了 %s"%find_name)
+        print(std_table)
+        break
+else:
+        print("抱歉没有要找的人")
+
+print("循环结束")
