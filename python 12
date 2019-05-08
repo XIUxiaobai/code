@@ -1,0 +1,21 @@
+import random
+#判断胜负
+def PLAYGAEM():
+    # 玩家出拳
+    player = int(input("石头（1）布（2）剪刀（3）玩家请出拳： "))
+    if player < 1 or player > 3:
+        print("您输入的数值错误,请重新输入")
+        PLAYGAEM()
+    else:
+        # 电脑出拳
+        computer = random.randint(1, 3)
+        print("电脑出得拳是：%d" % computer)
+        if ((player == 1 and computer == 3)
+                or (player == 2 and computer == 1)
+                or (player == 3 and computer == 2)):
+            print("玩家胜利")
+        elif player == computer:
+            print("平局")
+        else:
+            print("电脑胜利")
+PLAYGAEM()
