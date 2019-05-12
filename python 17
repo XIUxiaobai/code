@@ -1,0 +1,85 @@
+#制作欢迎界面
+card_list = []
+def menus():
+    print("*"*50)
+
+    print("欢迎登录名片管理系统")
+    print("1.新建名片")
+    print("2.显示全部")
+    print("3.查询名片")
+    print("")
+    print("0.退出系统")
+    print("*" *50)
+
+
+def new_card():
+    # 提示用户输入信息
+    print("您选择的操作是：新建名片" )
+    name_str = input("请输入姓名：")
+    qq_str = input("请输入QQ号码：")
+    number_str = input("请输入电话号码：")
+    email_str = input("请输入邮箱地址：")
+
+    #将用户输入的信息存到字典中
+    card_dict= {"name":name_str,
+                "qq":qq_str,
+                "number":number_str,
+                "email":email_str}
+#将字典添加到列表中
+    card_list.append(card_dict)
+#提示用户添加信息成功
+    print("名片信息添加成功！")
+
+
+def show_card():
+    print("您选择的操作是：显示所有名片")
+    if len(card_list) == 0:
+        print("当前没有任何信息，请返回添加信息")
+        return
+    #打印表头
+    print("姓名\t\tQQ号码\t\t电话号码\t\temail地址\t\t")
+    print("=" *50)
+    for card_dict in card_list:
+
+        print("%s\t\t\t%s\t\t\t%s\t\t\t%s" % (card_dict["name"],
+                                    card_dict["qq"],
+                                    card_dict["number"],
+                                    card_dict["email"]))
+
+def search_card():
+    print("您选择的功能是：查询名片")
+    user = input("请选择您要查询的信息：")
+    if user in ["name","qq","number","email"]:
+        if user == "name":
+            names = input("请输入要查询的姓名：")
+            for card_dict in card_list:
+                if card_dict["name"] == names:
+                    print("找到了")
+                    print("姓名\t\tQQ号码\t\t电话号码\t\temail地址\t\t")
+                    print("=" * 50)
+                    print("%s\t\t\t%s\t\t\t%s\t\t\t%s" % (card_dict["name"],
+                                                          card_dict["qq"],
+                                                          card_dict["number"],
+                                                          card_dict["email"]))
+                    break
+
+            else:
+                    print("没有找到 %s,请重新输入"%names)
+    lead = input("请输入您要进行的操作:修改1/删除2/返回0")
+    if lead == 1:
+        print("姓名\t\tQQ号码\t\t电话号码\t\temail地址\t\t")
+        print("=" * 50)
+        for card_dict in card_list:
+            print("%s\t\t\t%s\t\t\t%s\t\t\t%s" % (card_dict["name"],
+                                                  card_dict["qq"],
+                                                  card_dict["number"],
+                                                  card_dict["email"]))
+        keys = input("请选择你要修改的信息：")
+        na = input("修改后的信息为：")
+        
+
+
+
+
+
+
