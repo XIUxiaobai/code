@@ -1,0 +1,19 @@
+poem = ["\t\n登黄鹤楼",
+        "白居易",
+        "白日依山尽",
+        "黄河入海流",
+        "欲穷千里目",
+        "更上一层楼"]
+
+for poem_str in poem:
+    #先对内容进行删除空白格
+    #接着对内容进行居中处理
+    print("|%s|"%poem_str.strip().center(10,"　"))
+
+
+poem2_str = "\t\n登黄鹤楼\t\n白居易\n白日依山尽\t黄河入海流\t\n欲穷千里目\n更上一层楼"
+print(poem2_str)
+poem3_str = poem2_str.split()
+print(poem3_str)
+result = "\t\n".join(poem3_str)
+print(result)
