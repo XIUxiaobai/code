@@ -1,0 +1,9 @@
+str = "0123456789"
+print(str[2:6])
+print(str[:])
+#字符串逆序
+print(str[-1::-1])
+#想字符串间隔输出
+print(str[::2])
+print(str[1::2])
+print(str[-2:])
