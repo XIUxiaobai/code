@@ -1,0 +1,76 @@
+using System.Data.OleDb;
+public partial class Default2 : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+       
+        this.xinwenfillgv();//调用用户自定义的xinwenfillgv()方法
+        this.fillgougao();//调用用户自定义的fillgougao()方法
+        this.qianfeifillgv();//调用用户自定义的qianfeifillgv()方法
+        
+    }
+    public void xinwenfillgv()            //用户自定义的方法
+    {
+        OleDbConnection con = DB.createDB();//调用用户自定义的DB类的createDB()的方法
+        OleDbCommand cmd = new OleDbCommand();//声明一个OleDbCommand的对象,并将该对象cmd实例化
+        cmd.Connection = con;
+        con.Open();//打开数据库连接
+        OleDbDataAdapter sda = new OleDbDataAdapter("select top 9 * from tb_xinwen order by fabushijian desc", con);//从新闻表tb_xinwen按发布时间fabushijian的降序排序
+        DataSet ds = new DataSet();//声明一个DataSet的对象,并将该对象ds实例化
+        sda.Fill(ds, "tb_xinwen");//将新闻表tb_xinwen填充到数据库中
+        this.gvXw.DataSource = ds;
+        //this.GridView2.DataKeyNames = new string[] { "title" }; 
+        this.gvXw.DataBind();//将数据绑定到GridView控件中
+        for (int i = 0; i <= gvXw.Rows.Count - 1; i++)
+        {
+            DataRowView mydrv;  //声明一个DataRowView的对象
+            string gintro;
+            if (this.gvXw.PageIndex == 0)
+            {
+                mydrv = ds.Tables["tb_xinwen"].DefaultView[i];
+                gintro = Convert.ToString(mydrv["title"]);
+                this.gvXw.Rows[i].Cells[0].Text = SubStr(gintro, 10);
+            }
+            else
+            {
+                mydrv = ds.Tables["tb_xinwen"].DefaultView[i + (5 * gvXw.PageIndex)];
+                gintro = Convert.ToString(mydrv["title"]);
+                this.gvXw.Rows[i].Cells[0].Text = SubStr(gintro, 10);
+            }
+        }
+        con.Close();//关闭数据库连接
+    }
+   
+    public void fillgougao()
+    {
+        OleDbConnection con = DB.createDB();//调用用户自定义的DB类的createDB()的方法
+        OleDbCommand cmd = new OleDbCommand(" select  * from tb_zhannei", con);
+        con.Open();//打开数据库连接
+        OleDbDataReader sdr = cmd.ExecuteReader(); 
+        sdr.Read();//
+        this.lblGgxx.Text = sdr.GetString(0);//从数据库zhannei中读取gonggao第一个数据放到Label标签中
+        sdr.Close();//关闭阅读器
+        con.Close();//关闭数据库连接
+    }
+    public void qianfeifillgv()
+    {
+        OleDbConnection con = DB.createDB();
+        con.Open(); //打开数据库连接
+        OleDbCommand cmd = new OleDbCommand();//调用用户自定义的DB类的createDB()的方法
+        OleDbDataAdapter sda = new OleDbDataAdapter("select top 10 * from tb_qianfei", con);
+        DataSet ds = new DataSet();         //声明一个DataSet的ds对象,并将其实例化
+        sda.Fill(ds, "tb_qianfei");
+        this.gvQf.DataSource = ds;
+        this.gvQf.DataBind();//将数据绑定到GridView控件中
+        con.Close();//关闭数据库连接
+    }
+    public string SubStr(string sString, int nLeng)
+    {
+        if (sString.Length <= nLeng)  //判断字符串的长度
+        {
+            return sString;//返回一个string类型的变量
+        }
+        string sNewStr = sString.Substring(0, nLeng);//截取字符串
+        sNewStr = sNewStr + "...";//在变量后面加上"...."
+        return sNewStr; //返回一个string类型的变量
+    }
