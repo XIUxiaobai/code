@@ -1,0 +1,36 @@
+class MusicPlayer(object):
+
+    #重新__new__方法
+    def __new__(cls, *args, **kwargs):
+        #创建对象的时候new方法会被自动调用，当写出来的时候就是对它重写覆盖原来的功能
+        print("创建对象，分配空间")
+        #为对象分配空间，这个时候只需要super该方法原有的代码
+        res = super().__new__(cls)
+        #返回对象的引用（也就是返回重写以后new对象的地址）
+        return res
+    def __init__(self):
+
+        print("播放器初始化")
+
+player = MusicPlayer()
+
+print(player)
+
+
+class Tool():
+    count = 0
+    @classmethod
+    def show_tool_count(cls):
+
+        print("工具对象的数量是 %d"%cls.count)
+
+    def __init__(self,name):
+        self.name = name
+
+        #让类值属性加1
+        Tool.count += 1
+
+tool1 = Tool("榔头")
+tool2 = Tool("斧头")
+
+Tool.show_tool_count()
