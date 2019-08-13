@@ -1,0 +1,15 @@
+#range()内置函数，可创建一个整数列表，一般用在for循环当中
+#语法：range(start,stop,step)
+# x = "runoob"
+# for i in range(len(x)):
+#     print(x[i])
+
+def bubble_sort(alist):
+    for j in range(len(alist)-1,0,-1):
+        for i in range(j):
+            if alist[i]>alist[i+1]:
+                alist[i],alist[i+1] = alist[i+1],alist[i]
+
+alist = [1,4,3,2,77,32,43,12,22,17,8]
+bubble_sort(alist)
+print(alist                                                                 )
